@@ -178,3 +178,41 @@ Informasi alat yang digunakan dapat ditemukan pada *field* `User-Agent` di dalam
 Setelah semua pertanyaan dijawab, flag berhasil didapatkan.
 
 **Flag**: `KOMJAR25{Brut3_F0rc3_yPae8nuoTveKw617mpemTVZY8}`
+
+
+---
+## Soal 17: Analisis File Berbahaya pada Halaman Web
+> Manwe membuat halaman web di node-nya yang menampilkan gambar cincin agung. Melkor yang melihat web tersebut merasa iri sehingga ia meletakkan file berbahaya agar web tersebut dapat dianggap menyebarkan malware oleh Eru. Analisis file capture untuk menggagalkan rencana Melkor dan menyelamatkan web Manwe.
+
+### 1. Mengekstrak Objek dari Lalu Lintas HTTP
+Untuk menemukan file yang ditransfer melalui halaman web, digunakan fitur **Export Objects > HTTP** di Wireshark.
+![insert-image-1](images/soal17_1.png)
+
+Fitur ini menampilkan daftar semua objek/file yang diunduh atau diunggah melalui protokol HTTP dalam file *capture*. Terlihat ada tiga file yang ditransfer: `ncsi.txt`, `Invoice&MSO-Request.doc`, dan `knr.exe`.
+![insert-image-2](images/soal17_2.png)
+
+---
+### 2. Analisis dan Jawaban
+Dengan informasi ini, pertanyaan dari portal `nc` dapat dijawab satu per satu.
+
+#### Pertanyaan 1: Apa nama file mencurigakan pertama?
+Setelah mencoba beberapa nama file yang ada, jawaban yang benar teridentifikasi.
+![insert-image-3](images/soal17_3.png)
+-   **Jawaban**: `Invoice&MSO-Request.doc`
+
+#### Pertanyaan 2: Apa nama file mencurigakan kedua?
+Berdasarkan sisa file, jawaban yang benar adalah `knr.exe`.
+![insert-image-4](images/soal17_4.png)
+-   **Jawaban**: `knr.exe`
+
+#### Pertanyaan 3: Apa hash dari file mencurigakan kedua (knr.exe)?
+Untuk mendapatkan hash, file `knr.exe` diekspor dari Wireshark. Kemudian, perintah `shasum -a 256` dijalankan pada file tersebut untuk menghitung nilai hash SHA256-nya.
+![insert-image-5](images/soal17_5.jpg)
+-   **Jawaban**: `749e161661290e8a2d190b1a66469744127bc25bf46e5d0c6f2e835f4b92db18`
+
+---
+### Hasil Akhir
+Setelah semua pertanyaan dijawab dengan benar, flag berhasil didapatkan.
+![insert-image-6](images/soal17_6.jpg)
+
+**Flag**: `KOMJAR25{M4ster_4n4lyzer_VMn8SULj96pveFpFJW0cBLPed}`
