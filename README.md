@@ -207,12 +207,12 @@ Berdasarkan sisa file, jawaban yang benar adalah `knr.exe`.
 
 #### Pertanyaan 3: Apa hash dari file mencurigakan kedua (knr.exe)?
 Untuk mendapatkan hash, file `knr.exe` diekspor dari Wireshark. Kemudian, perintah `shasum -a 256` dijalankan pada file tersebut untuk menghitung nilai hash SHA256-nya.
-![insert-image-5](images/soal17_5.jpg)
+![insert-image-5](images/soal17_5.png)
 -   **Jawaban**: `749e161661290e8a2d190b1a66469744127bc25bf46e5d0c6f2e835f4b92db18`
 
 ---
 ### Hasil Akhir
 Setelah semua pertanyaan dijawab dengan benar, flag berhasil didapatkan.
-![insert-image-6](images/soal17_6.jpg)
+![insert-image-6](images/soal17_6.png)
 
 **Flag**: `KOMJAR25{M4ster_4n4lyzer_VMn8SULj96pveFpFJW0cBLPed}`
