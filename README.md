@@ -216,3 +216,49 @@ Setelah semua pertanyaan dijawab dengan benar, flag berhasil didapatkan.
 ![insert-image-6](images/soal17_6.png)
 
 **Flag**: `KOMJAR25{M4ster_4n4lyzer_VMn8SULj96pveFpFJW0cBLPed}`
+
+
+---
+## Soal 18: Analisis Transfer Malware via SMB
+> Karena rencana Melkor yang terus gagal, ia akhirnya berhenti sejenak untuk berpikir. Pada saat berpikir ia akhirnya memutuskan untuk membuat rencana jahat lainnya dengan meletakkan file berbahaya lagi tetapi dengan metode yang berbeda. Gagalkan lagi rencana Melkor dengan mengidentifikasi file capture yang disediakan agar dunia tetap aman.
+
+### 1. Investigasi Awal
+Analisis awal dilakukan dengan menggunakan fitur **Export Objects > HTTP** di Wireshark. Namun, metode ini tidak menunjukkan file-file berbahaya yang relevan, menandakan bahwa Melkor menggunakan protokol yang berbeda dari HTTP.
+![insert-image-1](images/soal18_1.jpg)
+
+### 2. Mengidentifikasi File Malware dengan Tshark
+Karena metode sebelumnya tidak berhasil, analisis dilanjutkan menggunakan **Tshark**, yaitu Wireshark versi *command-line*. Dengan perintah `grep`, kita dapat menyaring lalu lintas data untuk mencari file `.exe`.
+
+-   **Perintah Tshark**: `tshark -r MelkorPlan3.pcap | grep --color=auto -i -C 5 ".exe"`
+
+Perintah ini berhasil menemukan dua file `.exe` dengan nama acak yang ditransfer menggunakan protokol **SMB**, bukan HTTP.
+![insert-image-2](images/soal18_2.jpg)
+
+-   **Jawaban (Jumlah File)**: `2`
+
+---
+### 3. Analisis File dan Jawaban
+Setelah file-file malware diidentifikasi, langkah selanjutnya adalah mengekstraknya dari file pcap untuk dianalisis lebih lanjut dan menjawab pertanyaan.
+
+#### Pertanyaan 1 & 2: Apa nama file berbahaya pertama dan kedua?
+Berdasarkan hasil Tshark, nama kedua file tersebut adalah:
+-   **Jawaban 1**: `d0p2nc6ka3f_fixhohlycj4ovqfcy_smchzo_ub83urjpphrwahjwhv_o5c0fvf6.exe`
+-   **Jawaban 2**: `Oiku9bu68cxqenfmcsos2aek6t07_guuisgxhllixv8dx2eemqddnhyh46l8n_di.exe`
+
+#### Pertanyaan 3 & 4: Apa hash dari kedua file berbahaya tersebut?
+Setelah kedua file diekstrak, nilai hash SHA256 dihitung menggunakan perintah `shasum -a 256`.
+
+-   **Hash File Pertama**:
+    ![insert-image-3](images/soal18_3.png)
+-   **Jawaban**: `59896ae5f3edcb999243c7bfdc0b17eb7fe28f3a66259d797386ea470c010040`
+
+-   **Hash File Kedua**:
+    ![insert-image-4](images/soal18_4.png)
+-   **Jawaban**: `cf99990bee6c378cbf56239b3cc88276eec348d82740f84e9d5c343751f82560`
+
+---
+### Hasil Akhir
+Setelah semua hash yang benar dimasukkan, flag berhasil didapatkan.
+![insert-image-5](images/soal18_5.png)
+
+**Flag**: `KOMJAR25{Y0u_4re_g0dl1ke_CtAlg2TQW6Mdsv7Ut2BmAmeKz}`
