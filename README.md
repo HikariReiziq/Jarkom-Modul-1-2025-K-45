@@ -1,4 +1,10 @@
-# Laporan Praktikum Modul 1: Konfigurasi Jaringan Dasar
+# Laporan Praktikum Modul 1: 
+
+| Nama Lengkap                        | NIM         | Kelas |
+|------------------------------------|-------------|-------|
+| M. Hikari Reizqi Rakhmadinta       | 5022141079  | K-45  |
+| MADE GDE KRISNA WANGSA             | 502201047   | -     |
+
 - **Kelompok**: K-45
 - **Prefix IP**: 10.86
 
