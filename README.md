@@ -2,8 +2,8 @@
 
 | Nama Lengkap                        | NIM         |
 |------------------------------------|-------------|
-| M. Hikari Reizqi Rakhmadinta       | 5022141079  |
-| MADE GDE KRISNA WANGSA             | 502201047   |
+| M. Hikari Reizqi Rakhmadinta       | 5027241079  |
+| MADE GDE KRISNA WANGSA             | 5027201047  |
 
 - **Kelompok**: K-45
 - **Prefix IP**: 10.86
@@ -110,3 +110,17 @@ Langkah terakhir adalah mengkonfigurasi Eru agar dapat meneruskan koneksi intern
 -   **Konfigurasi DNS dan Pengujian Akhir pada Client**
     Alamat DNS server yang didapat dari Eru kemudian dikonfigurasikan pada salah satu *client* (contoh: Melkor). Setelah konfigurasi DNS, dilakukan tes `ping google.com` yang akhirnya berhasil. Ini membuktikan bahwa *client* sudah dapat terhubung ke internet melalui Router Eru.
     ![insert-image-10](images/soal1-5_10.png)
+
+---
+
+## 5. Soal 5: Membuat Konfigurasi Persisten
+Tujuan dari soal ini adalah untuk memastikan semua konfigurasi jaringan yang telah diatur tidak hilang atau ter-reset setelah setiap *node* di-*restart*.
+
+### Solusi dan Implementasi
+Pengerjaan soal ini secara otomatis sudah tercapai pada saat mengerjakan soal 2 dan 3. Konfigurasi jaringan pada sistem operasi Debian menjadi permanen ketika ditulis ke dalam file `/etc/network/interfaces`.
+
+Semua skrip yang telah dibuat, seperti **`soal_2.sh`** dan **`soal_3.sh`**, bertugas untuk menulis atau menambahkan konfigurasi ke file tersebut. Dengan demikian, setiap kali *node* dinyalakan, sistem akan membaca file ini dan menerapkan konfigurasi IP secara otomatis.
+
+![insert-image-11](images/soal1-5_11.png)
+
+Verifikasi dapat dilakukan dengan sederhana, yaitu me-*restart* salah satu *node* (`reboot`) dan memeriksa kembali konfigurasinya (`ip a`) setelah menyala. Konfigurasi akan tetap sama seperti yang telah diatur.
