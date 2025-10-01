@@ -124,3 +124,57 @@ Semua skrip yang telah dibuat, seperti **`soal_2.sh`** dan **`soal_3.sh`**, bert
 ![insert-image-11](images/soal1-5_11.png)
 
 Verifikasi dapat dilakukan dengan sederhana, yaitu me-*restart* salah satu *node* (`reboot`) dan memeriksa kembali konfigurasinya (`ip a`) setelah menyala. Konfigurasi akan tetap sama seperti yang telah diatur.
+
+
+---
+## Soal 14: Analisis Serangan Brute Force
+> Setelah gagal mengakses FTP, Melkor melancarkan serangan brute force terhadap Manwe. Analisis file capture yang disediakan dan identifikasi upaya brute force Melkor.
+
+### 1. Persiapan dan Eksplorasi File
+Langkah pertama adalah mengunduh file yang disediakan dari Google Drive.
+![insert-image-1](images/soal14_1.png)
+
+File yang diunduh berupa `shortbf.zip`, yang kemudian diekstrak menjadi file capture `shortbf.pcapng`.
+![insert-image-2](images/soal14_2.png)
+
+Selanjutnya, dilakukan pengecekan pada `nc 10.15.43.32 3401` yang ternyata merupakan portal pertanyaan, di mana jawabannya dapat ditemukan dengan menganalisis file pcap.
+![insert-image-3](images/soal14_3.png)
+
+---
+### 2. Analisis File Capture
+
+#### Pertanyaan 1: Berapa banyak paket yang terekam?
+Untuk mengetahui jumlah total paket, digunakan menu **Statistics > Capture File Properties** di Wireshark.
+![insert-image-4](images/soal14_4.png)
+-   **Jawaban**: `500358`
+
+#### Pertanyaan 2: User mana yang berhasil login?
+Karena terdapat ratusan ribu percobaan *login* yang gagal dengan pesan "Invalid credentials", cara tercepat untuk menemukan yang berhasil adalah dengan memfilter respons server yang berisi pesan sukses.
+-   **Filter Wireshark**: `http contains "Login successful."`
+
+Filter ini berhasil menampilkan satu paket, yang merupakan respons dari server untuk *login* yang berhasil.
+![insert-image-5](images/soal14_5.png)
+
+Untuk melihat detail *request* dan *response*, digunakan fitur **Follow > HTTP Stream**.
+-   Gambar berikut menunjukkan contoh *stream* dari *login* yang **gagal**.
+    ![insert-image-6](images/soal14_6.png)
+
+-   Dan ini adalah *stream* dari *login* yang **berhasil**, di mana *username* dan *password* yang benar terlihat.
+    ![insert-image-8](images/soal14_8.png)
+-   **Jawaban**: `n1enna:y4v4nn4_k3m3nt4r1`
+
+#### Pertanyaan 3: Di stream mana kredensial ditemukan?
+Nomor *stream* dari komunikasi yang berhasil dapat dilihat di bagian bawah jendela "Follow HTTP Stream".
+![insert-image-7](images/soal14_7.png)
+-   **Jawaban**: `41824`
+
+#### Pertanyaan 4: Alat apa yang digunakan untuk brute force?
+Informasi alat yang digunakan dapat ditemukan pada *field* `User-Agent` di dalam *header* HTTP *request*.
+![insert-image-8](images/soal14_8.png)
+-   **Jawaban**: `Fuzz Faster U Fool v2.1.0-dev`
+
+---
+### Hasil Akhir
+Setelah semua pertanyaan dijawab, flag berhasil didapatkan.
+
+**Flag**: `KOMJAR25{Brut3_F0rc3_yPae8nuoTveKw617mpemTVZY8}`
