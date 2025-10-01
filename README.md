@@ -224,7 +224,7 @@ Setelah semua pertanyaan dijawab dengan benar, flag berhasil didapatkan.
 
 ### 1. Investigasi Awal
 Analisis awal dilakukan dengan menggunakan fitur **Export Objects > HTTP** di Wireshark. Namun, metode ini tidak menunjukkan file-file berbahaya yang relevan, menandakan bahwa Melkor menggunakan protokol yang berbeda dari HTTP.
-![insert-image-1](images/soal18_1.jpg)
+![insert-image-1](images/soal18_1.png)
 
 ### 2. Mengidentifikasi File Malware dengan Tshark
 Karena metode sebelumnya tidak berhasil, analisis dilanjutkan menggunakan **Tshark**, yaitu Wireshark versi *command-line*. Dengan perintah `grep`, kita dapat menyaring lalu lintas data untuk mencari file `.exe`.
@@ -232,7 +232,7 @@ Karena metode sebelumnya tidak berhasil, analisis dilanjutkan menggunakan **Tsha
 -   **Perintah Tshark**: `tshark -r MelkorPlan3.pcap | grep --color=auto -i -C 5 ".exe"`
 
 Perintah ini berhasil menemukan dua file `.exe` dengan nama acak yang ditransfer menggunakan protokol **SMB**, bukan HTTP.
-![insert-image-2](images/soal18_2.jpg)
+![insert-image-2](images/soal18_2.png)
 
 -   **Jawaban (Jumlah File)**: `2`
 
