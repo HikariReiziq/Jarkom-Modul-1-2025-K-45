@@ -1,6 +1,6 @@
-# Laporan Praktikum Modul 1: 
+# Lapres Praktikum Modul 1: 
 
-| Nama Lengkap                        | NIM         |
+| Nama Lengkap                        | NRP         |
 |------------------------------------|-------------|
 | M. Hikari Reizqi Rakhmadinta       | 5027241079  |
 | MADE GDE KRISNA WANGSA             | 5027201047  |
@@ -8,11 +8,11 @@
 - **Kelompok**: K-45
 - **Prefix IP**: 10.86
 
-Laporan ini mendokumentasikan proses pengerjaan soal 1 hingga 4, mulai dari setup topologi sederhana hingga memberikan akses internet ke semua *node client*.
+Laporan ini mendokumentasikan proses pengerjaan soal GNS3 1 hingga 5 dan soal malware wireshark no 14 dan no 16-18 , mulai dari setup topologi sederhana memberikan akses internet ke semua *node client* hingga wireshark.
 
 ---
 
-## 1. Setup Awal dan Konektivitas Router
+## Soal 1. Setup Awal dan Konektivitas Router
 Tahap awal adalah membangun topologi sederhana untuk menghubungkan **Router Eru** ke internet dan memastikan akses konsol dapat dilakukan.
 
 -   **Membuat Topologi Sederhana**
@@ -27,19 +27,21 @@ Tahap awal adalah membangun topologi sederhana untuk menghubungkan **Router Eru*
     Setelah instalasi, koneksi ke konsol *node* di GNS3 berhasil dilakukan.
     ![insert-image-3](images/soal1-5_3.png)
 
+## Soal 2. Melakukan test koneksi
+
 -   **Menguji Koneksi Internet Router (Eru)**
     Dengan mengaktifkan DHCP client pada *interface* yang terhubung ke NAT, Router Eru berhasil mendapatkan koneksi internet, dibuktikan dengan `ping google.com`.
     ![insert-image-4](images/soal1-5_4.png)
 
 ---
 
-## 2. Soal 1: Melengkapi Topologi Jaringan
+### Melengkapi Topologi Jaringan
 Sesuai soal, topologi kemudian dilengkapi dengan dua *switch* dan empat *client* (Melkor, Manwe, Varda, dan Ulmo).
 ![insert-image-5](images/soal1-5_5.png)
 
 ---
 
-## 3. Soal 2 & 3: Konfigurasi Alamat IP
+## Soal 3: Konfigurasi Alamat IP
 Selanjutnya, alamat IP statis diatur untuk semua *node* agar dapat berkomunikasi di jaringan lokal.
 
 -   **Eru (Router)**
@@ -95,7 +97,7 @@ Pengecekan pada Eru menggunakan `ip a` menunjukkan semua *interface* telah terko
 
 ---
 
-## 4. Soal 4: Memberikan Akses Internet untuk Client
+## Soal 4: Memberikan Akses Internet untuk Client
 Langkah terakhir adalah mengkonfigurasi Eru agar dapat meneruskan koneksi internet ke semua *client*.
 
 -   **Konfigurasi Iptables (NAT)**
@@ -113,18 +115,20 @@ Langkah terakhir adalah mengkonfigurasi Eru agar dapat meneruskan koneksi intern
 
 ---
 
-## 5. Soal 5: Membuat Konfigurasi Persisten
+## Soal 5: Membuat Konfigurasi Persisten
 Tujuan dari soal ini adalah untuk memastikan semua konfigurasi jaringan yang telah diatur tidak hilang atau ter-reset setelah setiap *node* di-*restart*.
 
 ### Solusi dan Implementasi
-Pengerjaan soal ini secara otomatis sudah tercapai pada saat mengerjakan soal 2 dan 3. Konfigurasi jaringan pada sistem operasi Debian menjadi permanen ketika ditulis ke dalam file `/etc/network/interfaces`.
+Pengerjaan soal ini secara otomatis sudah tercapai pada saat mengerjakan soal 2 dan 3. Konfigurasi jaringan dengan kita membuat script sh ke dalam folder /root/.bashrc.
+
+![insert-image-11](images/soal1-5_12.png)
+![insert-image-11](images/soal1-5_13.png)
 
 Semua skrip yang telah dibuat, seperti **`soal_2.sh`** dan **`soal_3.sh`**, bertugas untuk menulis atau menambahkan konfigurasi ke file tersebut. Dengan demikian, setiap kali *node* dinyalakan, sistem akan membaca file ini dan menerapkan konfigurasi IP secara otomatis.
 
 ![insert-image-11](images/soal1-5_11.png)
 
 Verifikasi dapat dilakukan dengan sederhana, yaitu me-*restart* salah satu *node* (`reboot`) dan memeriksa kembali konfigurasinya (`ip a`) setelah menyala. Konfigurasi akan tetap sama seperti yang telah diatur.
-
 
 ---
 ## Soal 14: Analisis Serangan Brute Force
