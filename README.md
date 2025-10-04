@@ -183,6 +183,74 @@ Setelah semua pertanyaan dijawab, flag berhasil didapatkan.
 
 **Flag**: `KOMJAR25{Brut3_F0rc3_yPae8nuoTveKw617mpemTVZY8}`
 
+# Soal 16: Analisis Serangan Melkor di Server Manwe
+
+## Deskripsi Kasus
+
+[cite_start]Dalam skenario ini, Melkor diceritakan meletakkan beberapa file berbahaya di server milik Manwe[cite: 2]. [cite_start]Tugas kita adalah menganalisis file *capture* jaringan yang ada untuk mengidentifikasi file apa yang diletakkan oleh Melkor[cite: 3].
+
+---
+
+### Langkah 1: Menemukan Kredensial Login
+
+Untuk mengetahui kredensial yang digunakan oleh penyerang, kita perlu menganalisis lalu lintas FTP. [cite_start]Dengan menggunakan filter `ftp.request.command == "USER" || ftp.request.command == "PASS"` di Wireshark, kita dapat menemukan username dan password yang digunakan untuk login ke server[cite: 7].
+
+![insert-image-1](images/soal16_1.png)
+
+[cite_start]Dari hasil filter, kita mengikuti TCP stream untuk melihat detail komunikasi[cite: 9].
+
+![insert-image-2](images/soal16_2.png)
+
+* [cite_start]**Credential yang digunakan:** `ind@psg420.com:6r_6e#TfT1p` [cite: 34]
+
+---
+
+### Langkah 2: Mengidentifikasi File Malware
+
+Setelah berhasil login, penyerang mengunggah beberapa file. [cite_start]Dengan melanjutkan analisis pada TCP stream yang sama, kita dapat melihat daftar file yang ditransfer ke server, seperti `q.exe`, `w.exe`, `r.exe`, `t.exe`, dan `e.exe`[cite: 37].
+
+![insert-image-3](images/soal16_3.png)
+
+* [cite_start]**Jumlah file yang dicurigai:** Terdapat **5 file** yang mengandung file berbahaya[cite: 72].
+
+---
+
+### Langkah 3: Analisis Hash dan Verifikasi Malware
+
+[cite_start]Untuk membuktikan bahwa file-file tersebut berbahaya, setiap file diekstrak dari *capture* dengan filter `ftp-data`[cite: 75]. [cite_start]Kemudian, setiap file dianalisis menggunakan VirusTotal untuk mendapatkan hash SHA256 dan melihat laporan analisis dari berbagai vendor antivirus[cite: 181].
+
+#### **File 1: q.exe**
+* [cite_start]**SHA256 Hash:** `ca34b0926cdc3242bbfad1c4a0b42cc2750d90db9a272d92cfb6cb7034d2a3bd` [cite: 226]
+
+![insert-image-4](images/soal16_5.png)
+
+#### **File 2: w.exe**
+* [cite_start]**SHA256 Hash:** `08eb941447078ef2c6ad8d91bb2f52256c09657ecd3d5344023edccf7291e9fc` [cite: 258]
+
+![insert-image-5](images/soal16_6.png)
+
+#### **File 3: e.exe**
+* **SHA256 Hash:** `32a1b3732cd779affb7730deecda7a0843196a0d870d7362a15ddbd3199`
+
+![insert-image-6](images/soal16_7.png)
+
+#### **File 4: r.exe**
+* [cite_start]**SHA256 Hash:** `4ebd58007ee933a0a8348aee2922904a7110b7fb6a316b1c7fb2c6677e613884` [cite: 352]
+
+![insert-image-7](images/soal16_8.png)
+
+#### **File 5: t.exe**
+* [cite_start]**SHA256 Hash:** `10ce4b79180a2ddd924fdc95951d968191af2ee3b7dfc96dd6a5714dbeae613a` [cite: 378]
+
+---
+
+### Kesimpulan dan Flag
+
+Setelah berhasil mengidentifikasi semua hash dari file-file berbahaya yang diunggah oleh Melkor, kita mendapatkan *flag* sebagai tanda penyelesaian tantangan.
+
+[cite_start]**Flag:** `KOMJAR25{Y0u_4r3_4_g00d_4nalyz3r_sbvZu6XBoXGH1s7bW0lW5i9su}` [cite: 384]
+
+![insert-image-8](images/soal16_9.png)
 
 ---
 ## Soal 17: Analisis File Berbahaya pada Halaman Web
